@@ -39,7 +39,8 @@ package model {
     maxRecords: Long,
     region: String,
     appName: String,
-    customEndpoint: Option[String]
+    customEndpoint: Option[String],
+    dynamodbCustomEndpoint: Option[String]
   ) {
     val timestampEither = initialTimestamp
       .toRight("An initial timestamp needs to be provided when choosing AT_TIMESTAMP")
@@ -54,6 +55,11 @@ package model {
       case "cn-north-1" => "kinesis.cn-north-1.amazonaws.com.cn"
       case _ => s"https://kinesis.$region.amazonaws.com"
     })
+
+    val dynamodbEndpoint = dynamodbCustomEndpoint.getOrElse(region match {
+        case "cn-north-1" => s"https://dynamodb.cn-north-1.amazonaws.com.cn"
+        case _ => s"https://dynamodb.$region.amazonaws.com"
+      })
   }
   case class BufferConfig(byteLimit: Long, recordLimit: Long, timeLimit: Long)
   case class StreamsConfig(
