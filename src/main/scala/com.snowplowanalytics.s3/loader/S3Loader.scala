@@ -111,7 +111,9 @@ object S3Loader {
     props.setProperty(KinesisConnectorConfiguration.PROP_KINESIS_ENDPOINT, conf.kinesis.endpoint)
     props.setProperty(KinesisConnectorConfiguration.PROP_APP_NAME, conf.kinesis.appName)
     props.setProperty(KinesisConnectorConfiguration.PROP_INITIAL_POSITION_IN_STREAM, conf.kinesis.initialPosition)
-    props.setProperty(KinesisConnectorConfiguration.PROP_DYNAMODB_ENDPOINT, conf.kinesis.dynamodbEndpoint)
+    conf.kinesis.dynamoDBCustomEndpoint.foreach { endpoint =>
+      props.setProperty(KinesisConnectorConfiguration.PROP_DYNAMODB_ENDPOINT, endpoint)
+    }
 
     props.setProperty(KinesisConnectorConfiguration.PROP_S3_ENDPOINT, conf.s3.endpoint)
     props.setProperty(KinesisConnectorConfiguration.PROP_S3_BUCKET, conf.s3.bucket)
