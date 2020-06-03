@@ -54,12 +54,7 @@ package model {
     val endpoint = customEndpoint.getOrElse(region match {
       case "cn-north-1" => "kinesis.cn-north-1.amazonaws.com.cn"
       case _ => s"https://kinesis.$region.amazonaws.com"
-    })
-
-    val dynamodbEndpoint = dynamodbCustomEndpoint.getOrElse(region match {
-        case "cn-north-1" => s"https://dynamodb.cn-north-1.amazonaws.com.cn"
-        case _ => s"https://dynamodb.$region.amazonaws.com"
-      })
+    }) 
   }
   case class BufferConfig(byteLimit: Long, recordLimit: Long, timeLimit: Long)
   case class StreamsConfig(
